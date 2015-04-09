@@ -19,6 +19,7 @@ app.get("/search", function (req, res) {
 	});
 });
 
+var savedMovies = [];
 
 app.get("/movie/:id", function (req, res) {
   var id = req.params.id;
@@ -29,10 +30,19 @@ app.get("/movie/:id", function (req, res) {
   });
 });
 
+app.post("/save", function (req, res) {
+  var movie = req.params.movie;
+  console.log("=========" + movie + "=========")
+  savedMovies.push(movie);
+  console.log("My saved movies" + savedMovies);
+  res.render("save");
+});
 
-
-
-
+app.get('/save', function(req, res){
+  var movies = savedMovies;
+  console.log(movies);
+  res.render('save.ejs', {movies: movies});
+});
 
 
 app.listen(3000, function () {
